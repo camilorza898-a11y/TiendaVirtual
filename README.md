@@ -1,6 +1,5 @@
 # Proyecto-Ingenieria-de-software2
 # TiendaDP
-adsa
 Tienda en línea hecha en Java para el parcial de Patrones de Diseño de Ingeniería de Software 2 (propuesta 1). Se puede usar por consola o con una interfaz gráfica en Swing, y las dos usan la misma lógica por debajo.
 
 **Integrantes:** Juan Ospina, Juan Rodriguez y Erick Penagos
