@@ -18,8 +18,6 @@ También se contempla un modo administrador para registrar productos, reponer ex
 
 El proyecto está desarrollado en Java 17 y los precios se manejan en pesos colombianos (COP). Para el manejo de valores monetarios se utiliza `BigDecimal`, evitando problemas de precisión en los cálculos.
 
----
-
 ## Alcance
 
 La propuesta del profesor trae una lista de opciones y cada grupo decide cuáles desarrolla. Este es el alcance definido para el proyecto.
@@ -46,7 +44,7 @@ La propuesta del profesor trae una lista de opciones y cada grupo decide cuáles
 | Correos o SMS reales | Los avisos se manejan dentro del sistema, sin utilizar servicios externos. |
 | Aplicación web | El proyecto se desarrolla como aplicación de escritorio en Java y no necesita una versión web. |
 
-### Dónde hay variación o cambio frecuente
+## Dónde hay variación o cambio frecuente
 
 El proyecto trabaja con cinco zonas donde pueden existir cambios o variaciones:
 
@@ -58,11 +56,9 @@ El proyecto trabaja con cinco zonas donde pueden existir cambios o variaciones:
 
 Los porcentajes, recargos y demás valores se manejan de forma que puedan modificarse fácilmente sin tener que cambiar toda la lógica del sistema.
 
----
-
 ## Requisitos funcionales
 
-**RF-01.** Registrar productos con su categoría y los atributos correspondientes:
+**RF-01. Registrar productos con su categoría y los atributos correspondientes:**
 
 - Ropa: talla y color.
 - Tecnología: marca y meses de garantía.
@@ -82,24 +78,24 @@ Todo producto tiene código, nombre y precio base.
 
 Cada extra suma su costo por cada unidad.
 
-**RF-05.** Calcular los descuentos automáticamente:
+**RF-05. Calcular los descuentos automáticamente:**
 
 - Por cantidad: 10 % desde 5 unidades del mismo producto.
 - Por temporada: 10 % sobre una categoría, dentro de un rango de fechas que se puede configurar.
 - Por cupón: un código con un valor fijo y fecha de vigencia.
 
-**RF-06.** Reglas de acumulación de descuentos:
+**RF-06. Reglas de acumulación de descuentos:**
 
 - Los descuentos por cantidad y temporada no se acumulan entre ellos. Si aplican los dos, se toma solamente el mayor.
 - Los descuentos por cupón se aplican de acuerdo con sus condiciones.
 - El descuento total no puede pasar del 50 % del subtotal de los productos.
 - Los descuentos se calculan sobre el precio base, no sobre los extras.
 
-**RF-07.** Pagar con tres medios simulados:
+**RF-07. Pagar con tres medios simulados:**
 
-- **Tarjeta:** número de 16 dígitos, de 1 a 36 cuotas y 3 % de recargo si es más de una cuota. Las tarjetas que terminan en 0000 se rechazan para simular un pago no aprobado.
-- **Transferencia:** pide un número de referencia y no tiene recargo.
-- **Contra entrega:** solo para pedidos de hasta $1.000.000 y con un recargo fijo de $5.000.
+- Tarjeta: número de 16 dígitos, de 1 a 36 cuotas y 3 % de recargo si es más de una cuota. Las tarjetas que terminan en 0000 se rechazan para simular un pago no aprobado.
+- Transferencia: pide un número de referencia y no tiene recargo.
+- Contra entrega: solo para pedidos de hasta $1.000.000 y con un recargo fijo de $5.000.
 
 **RF-08.** Cerrar el pedido. Se verifican las existencias, se calcula el total, se procesa el pago, se descuenta del inventario, se genera la factura y se vacía el carrito. Si el pago es rechazado, el pedido no se confirma, el inventario no cambia y el cliente puede intentar nuevamente con otro medio de pago.
 
@@ -115,23 +111,19 @@ Cada extra suma su costo por cada unidad.
 
 **RF-14.** En modo administrador: registrar productos, reponer existencias y crear cupones.
 
----
-
 ## Requisitos no funcionales
 
 | ID | Requisito | Cómo lo vamos a verificar |
 |---|---|---|
-| RNF-01 | **Extensibilidad.** Para agregar una categoría, un descuento, un medio de pago o un extra se debe poder crear una clase nueva y registrarla sin modificar innecesariamente las clases existentes. | Probando agregar una variante nueva, como si nos pidieran un cambio en vivo. |
-| RNF-02 | **Separación de capas.** El núcleo no debe depender de la consola ni de Swing. Las interfaces se comunican con los servicios del sistema. | Revisando las dependencias entre paquetes. |
-| RNF-03 | **Exactitud con el dinero.** Los valores monetarios se manejan con `BigDecimal`, evitando utilizar `double` para los cálculos. | Pruebas unitarias del cálculo de totales. |
-| RNF-04 | **Pruebas.** Se utiliza JUnit 5 para verificar las clases relacionadas con los patrones y otros componentes principales del sistema. | Ejecución de las pruebas unitarias y revisión de sus resultados. |
-| RNF-05 | **Mantenibilidad.** Paquetes con responsabilidades claras, clases pequeñas y documentación en las interfaces de los patrones. | Revisión de código entre los integrantes. |
-| RNF-06 | **Usabilidad.** Menú de consola con validación de entradas y mensajes claros. Interfaz gráfica en Swing para facilitar la navegación por el catálogo, carrito y demás funcionalidades. | Prueba manual de los flujos principales. |
-| RNF-07 | **Portabilidad.** Java 17 y herramientas de compilación compatibles con el proyecto. Debe poder ejecutarse en los computadores de los integrantes. | Compilando y ejecutando el proyecto en los computadores de los tres. |
-| RNF-08 | **Desempeño.** Cada operación debe responder en menos de un segundo con un catálogo de hasta 1.000 productos en memoria. | Prueba con un catálogo de muestra grande. |
-| RNF-09 | **Trazabilidad.** Repositorio Git con commits de cada integrante y un README con las instrucciones de compilación, ejecución y funcionalidades. | Revisión del historial de commits en GitHub. |
-
----
+| RNF-01 | Extensibilidad. Para agregar una categoría, un descuento, un medio de pago o un extra se debe poder crear una clase nueva y registrarla sin modificar innecesariamente las clases existentes. | Probando agregar una variante nueva, como si nos pidieran un cambio en vivo. |
+| RNF-02 | Separación de capas. El núcleo no debe depender de la consola ni de Swing. Las interfaces se comunican con los servicios del sistema. | Revisando las dependencias entre paquetes. |
+| RNF-03 | Exactitud con el dinero. Los valores monetarios se manejan con BigDecimal, evitando utilizar double para los cálculos. | Pruebas unitarias del cálculo de totales. |
+| RNF-04 | Pruebas. Se utiliza JUnit 5 para verificar las clases relacionadas con los patrones y otros componentes principales del sistema. | Ejecución de las pruebas unitarias y revisión de sus resultados. |
+| RNF-05 | Mantenibilidad. Paquetes con responsabilidades claras, clases pequeñas y documentación en las interfaces de los patrones. | Revisión de código entre los integrantes. |
+| RNF-06 | Usabilidad. Menú de consola con validación de entradas y mensajes claros. Interfaz gráfica en Swing para facilitar la navegación por el catálogo, carrito y demás funcionalidades. | Prueba manual de los flujos principales. |
+| RNF-07 | Portabilidad. Java 17 y herramientas de compilación compatibles con el proyecto. Debe poder ejecutarse en los computadores de los integrantes. | Compilando y ejecutando el proyecto en los computadores de los tres. |
+| RNF-08 | Desempeño. Cada operación debe responder en menos de un segundo con un catálogo de hasta 1.000 productos en memoria. | Prueba con un catálogo de muestra grande. |
+| RNF-09 | Trazabilidad. Repositorio Git con commits de cada integrante y un README con las instrucciones de compilación, ejecución y funcionalidades. | Revisión del historial de commits en GitHub. |
 
 ## Patrones de diseño utilizados
 
@@ -153,8 +145,6 @@ Permite establecer una relación de notificación entre un objeto que genera eve
 
 En el proyecto se utiliza para manejar los avisos relacionados con la reposición de productos y las suscripciones de los clientes. Cuando se actualiza el inventario, los observadores suscritos reciben la notificación correspondiente.
 
----
-
 ## Organización del código
 
 El código fuente está organizado en paquetes, cada uno con responsabilidades específicas:
@@ -171,9 +161,7 @@ El código fuente está organizado en paquetes, cada uno con responsabilidades e
 | `com.tiendavirtual.extras` | Contiene los componentes adicionales que se pueden agregar a los productos mediante Decorator. |
 | `com.tiendavirtual.notificaciones` | Contiene las clases encargadas de gestionar las suscripciones y notificaciones mediante Observer. |
 
-También se cuenta con un paquete de pruebas unitarias (`Test Packages`) para verificar el comportamiento de las diferentes clases.
-
----
+También se cuenta con un paquete de pruebas unitarias (Test Packages) para verificar el comportamiento de las diferentes clases.
 
 ## Tecnologías utilizadas
 
@@ -185,8 +173,6 @@ También se cuenta con un paquete de pruebas unitarias (`Test Packages`) para ve
 - **GitHub:** alojamiento del repositorio y trabajo colaborativo.
 - **BigDecimal:** manejo de valores monetarios.
 
----
-
 ## Cómo compilar y ejecutar
 
 ### Desde NetBeans
@@ -194,20 +180,18 @@ También se cuenta con un paquete de pruebas unitarias (`Test Packages`) para ve
 1. Descargar o clonar el repositorio de GitHub.
 2. Abrir NetBeans.
 3. Seleccionar **File → Open Project**.
-4. Buscar la carpeta del proyecto `TiendaVirtual`.
+4. Buscar la carpeta del proyecto TiendaVirtual.
 5. Abrir el proyecto.
 6. Esperar a que NetBeans reconozca la estructura del proyecto.
 7. Ejecutar la clase principal del sistema mediante **Run Project**.
 
-Para ejecutar las pruebas unitarias:
+### Para ejecutar las pruebas unitarias
 
 1. Abrir el proyecto en NetBeans.
 2. Ubicar la carpeta **Test Packages**.
 3. Seleccionar la clase de prueba que se desea ejecutar.
 4. Hacer clic derecho y seleccionar **Test File**.
 5. Revisar los resultados en la ventana de pruebas.
-
----
 
 ## Funcionalidades implementadas
 
@@ -232,13 +216,11 @@ La aplicación cuenta con las siguientes funcionalidades desarrolladas:
 - Versión por consola que reutiliza el núcleo de lógica de negocio.
 - Organización del código en paquetes según sus responsabilidades.
 
----
-
 ## Pruebas unitarias
 
-El proyecto utiliza **JUnit 5.10.3** para verificar el comportamiento de las clases relacionadas con los patrones de diseño y otros componentes principales.
+El proyecto utiliza **JUnit 5.10.3** para verificar el comportamiento de las clases relacionadas con los patrones de diseño y otros componentes principales del sistema.
 
-Hasta el momento se han ejecutado correctamente **81 pruebas unitarias**, distribuidas de la siguiente manera:
+Se han ejecutado correctamente **81 pruebas unitarias**, distribuidas de la siguiente manera:
 
 | Módulo | Pruebas exitosas |
 |---|---:|
@@ -266,9 +248,7 @@ Las pruebas permiten verificar, entre otros aspectos:
 - La creación y gestión de pedidos.
 - La generación y consulta de facturas.
 
-**Resultado de las pruebas ejecutadas:** 81 pruebas exitosas.
-
----
+**Resultado de las pruebas ejecutadas: 81 pruebas exitosas.**
 
 ## Control de versiones
 
@@ -276,9 +256,7 @@ El proyecto utiliza Git y GitHub para almacenar el código fuente y llevar un re
 
 La rama principal de trabajo es `master`, donde se encuentra el código fuente del proyecto.
 
-**Repositorio:** https://github.com/camilorza898-a11y/TiendaVirtual
-
----
+**Repositorio:** [TiendaVirtual en GitHub](https://github.com/camilorza898-a11y/TiendaVirtual)
 
 ## Estado del proyecto
 
@@ -286,8 +264,9 @@ El proyecto cuenta con una estructura organizada por paquetes y dos modalidades 
 
 Se encuentran desarrolladas las funcionalidades principales de catálogo, carrito de compras, gestión de productos, inventario, extras, descuentos, pagos simulados, notificaciones y generación de facturas.
 
-También se implementaron los patrones de diseño **Strategy, Decorator y Observer**, aplicados a diferentes componentes del sistema.
+También se implementaron los patrones de diseño Strategy, Decorator y Observer, aplicados a diferentes componentes del sistema.
 
 Se han ejecutado correctamente **81 pruebas unitarias con JUnit 5.10.3**, verificando el comportamiento de los descuentos, extras, notificaciones, pagos, inventario, catálogo, carrito, pedidos y facturación.
 
 El código fuente se encuentra organizado en paquetes y el proyecto utiliza Git y GitHub para el control de versiones y el trabajo colaborativo.
+
