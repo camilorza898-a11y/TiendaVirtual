@@ -2,8 +2,24 @@
 package com.tiendavirtual.servicios;
 
 import com.tiendavirtual.modelo.Producto;
+import com.tiendavirtual.notificaciones.GestorNotificaciones;
 
 public class InventarioService {
+
+    private GestorNotificaciones gestorNotificaciones;
+
+    public InventarioService() {
+        this.gestorNotificaciones = null;
+    }
+
+    public InventarioService(GestorNotificaciones gestorNotificaciones) {
+        this.gestorNotificaciones = gestorNotificaciones;
+    }
+
+    public void setGestorNotificaciones(
+            GestorNotificaciones gestorNotificaciones) {
+        this.gestorNotificaciones = gestorNotificaciones;
+    }
 
     public boolean hayExistencias(Producto producto, int cantidad) {
 
@@ -39,5 +55,9 @@ public class InventarioService {
 
         System.out.println("Stock actualizado. Existencias actuales: "
                 + producto.getStock());
+
+        if (gestorNotificaciones != null) {
+            gestorNotificaciones.notificar(producto);
+        }
     }
 }
